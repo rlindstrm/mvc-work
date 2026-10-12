@@ -1,0 +1,12 @@
+# Value sets, source terminologies and results stay local by default:
+# the repository is public and SNOMED CT release files are licensed.
+input/*
+sources/*
+output/*
+!input/.gitkeep
+!sources/.gitkeep
+!output/.gitkeep
+
+__pycache__/
+.venv/
+~$*.xlsx
