@@ -40,3 +40,26 @@ file name) is used.
 
 This repository is public, and SNOMED CT release files may only be distributed under
 licence, so `.gitignore` keeps the contents of `input/`, `sources/` and `output/` out of git.
+
+## Proposals from the ICD-11 Estonian translation
+
+```
+python propose_icd11.py sources/et-2026-08-23-current.xlsx [input/WORKBOOK.xlsx ...]
+```
+
+`propose_icd11.py` takes an ICD-11 Estonian translation export (columns `LabelEN`, `LabelET`,
+`Property`) and, for every value set sheet, adds two columns after the existing ones; no existing
+cell is changed:
+
+- `et-EE proposal (ICD-11)`: the Estonian label of the ICD-11 title, fully specified name,
+  synonym or narrower term whose English label equals column D (case-insensitive, British and
+  American spellings folded together). If D has no direct match:
+  - `Left X` / `Right X` becomes `Vasak x` / `Parem x`,
+  - `Entire X` becomes `<X>, tervik`,
+  - `Structure of X` / `X structure` becomes `<X>, struktuur`,
+  following the convention of the existing et-EE translations.
+- `ICD-11 match (English label)`: the ICD-11 English label used, with the rule applied
+  (e.g. `Entire + Stomach`), so a translator can review the proposal.
+
+The result is written to `output/<workbook>_ICD-11-proposals.xlsx`. Proposals are suggestions
+for review, not validated translations.
